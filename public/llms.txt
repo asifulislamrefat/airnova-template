@@ -1,0 +1,14 @@
+# Airnova
+
+> Airnova is a creative design studio crafting brand identities, websites, and digital products for ambitious teams.
+
+## Pages
+
+- [Home](/): Studio overview, featured work, and services.
+- [About](/about): Who we are, our process, and the people behind Airnova.
+- [Studio](/studio): A look inside our studio, craft, and culture.
+- [Services](/services): Design services we offer — branding, web, product, and more.
+- [Projects](/projects): Selected case studies and recent client work.
+- [Pricing](/pricing): Engagement options and pricing plans.
+- [Blog](/blog): Insights and ideas on design, branding, and digital experiences.
+- [Contact](/contact): Get in touch to start a project.
