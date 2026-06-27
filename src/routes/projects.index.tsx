@@ -35,7 +35,7 @@ function ProjectsPage() {
           <div className="flex flex-col items-center gap-4 text-center">
             <Pill>Our Project</Pill>
             <h1 className="max-w-[700px] text-[clamp(40px,8vw,80px)] font-semibold leading-[1.1] tracking-[-0.065em] text-black">
-              A <span className={`${serif} text-black/50`}>showcase</span> of my latest design
+              A <span className={`${serif} text-black/50`}>Showcase</span> of Our Creative Design Projects
             </h1>
             <p className="max-w-[605px] text-base font-medium leading-[1.5] tracking-[-0.075em] text-[#515151]">
               Explore a selection of our creative projects that showcase our passion for design and
@@ -43,6 +43,7 @@ function ProjectsPage() {
             </p>
           </div>
 
+          <h2 className="sr-only">Selected projects</h2>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
             {PROJECTS.map((p) => (
               <Link
