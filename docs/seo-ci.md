@@ -1,5 +1,20 @@
 # SEO CI checks
 
+## Lighthouse form factor (`LH_FORM_FACTOR`)
+
+`scripts/lighthouse-check.mjs` accepts `LH_FORM_FACTOR=mobile|desktop`
+(default `mobile`). Mobile uses Lighthouse's built-in Moto G Power +
+Slow 4G + 5.5× CPU throttle preset and a 412×823 viewport; desktop uses
+the `desktop` preset (1350×940, lighter throttling).
+
+The GitHub workflow runs both: a desktop pass against the standard
+thresholds, then a mobile pass with `LH_MOBILE_PERF_MIN` (default `0.6`)
+and `LH_MOBILE_SEO_MIN` (default `0.9`). Override via workflow_dispatch
+inputs (`lh_mobile_perf_min`, `lh_mobile_seo_min`) or repo Variables
+(`LH_MOBILE_PERF_MIN`, `LH_MOBILE_SEO_MIN`). Reports land in
+`lighthouse-reports/<slug>.<form-factor>.{html,json}` so the uploaded
+artifact contains both runs side-by-side.
+
 Three scripts run in `.github/workflows/seo-check.yml` on every successful
 deployment, daily at 06:00 UTC, and on manual dispatch:
 

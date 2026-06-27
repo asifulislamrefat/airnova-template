@@ -25,10 +25,21 @@ const LH_PERF_MIN = Number(process.env.LH_PERF_MIN ?? 0.7);
 const LH_BEST_MIN = Number(process.env.LH_BEST_MIN ?? 0.85);
 const LH_A11Y_MIN = Number(process.env.LH_A11Y_MIN ?? 0.85);
 
+// Form factor: "mobile" (Lighthouse default — Moto G Power, Slow 4G, 5.5x CPU
+// throttle, 412x823 viewport) or "desktop" (1350x940, faster throttle).
+// Mobile catches the regressions Google actually ranks on, so default there.
+const LH_FORM_FACTOR = (process.env.LH_FORM_FACTOR || "mobile").toLowerCase();
+if (!["mobile", "desktop"].includes(LH_FORM_FACTOR)) {
+  console.error(`Invalid LH_FORM_FACTOR=${LH_FORM_FACTOR}. Use "mobile" or "desktop".`);
+  process.exit(2);
+}
+
 // Where to write per-URL HTML + JSON Lighthouse reports. CI uploads this
 // directory as a build artifact (see .github/workflows/seo-check.yml).
 const LH_REPORT_DIR = resolve(process.env.LH_REPORT_DIR || "lighthouse-reports");
 mkdirSync(LH_REPORT_DIR, { recursive: true });
+
+console.log(`Lighthouse form factor: ${LH_FORM_FACTOR}`);
 
 // Structured-data audits that must pass on every blog page.
 const STRUCTURED_DATA_AUDITS = ["structured-data", "is-crawlable", "meta-description", "document-title", "http-status-code", "canonical"];
@@ -47,10 +58,13 @@ try {
       output: ["html", "json"],
       logLevel: "error",
       onlyCategories: ["performance", "seo", "best-practices", "accessibility"],
+      // `preset: "desktop"` swaps in desktop throttling + viewport; omitting it
+      // uses Lighthouse's default mobile emulation (Moto G Power, Slow 4G).
+      ...(LH_FORM_FACTOR === "desktop" ? { preset: "desktop" } : {}),
     });
     const lhr = runner.lhr;
     const [htmlReport, jsonReport] = runner.report;
-    const safe = slug.replace(/[^a-z0-9-]+/gi, "_");
+    const safe = `${slug.replace(/[^a-z0-9-]+/gi, "_")}.${LH_FORM_FACTOR}`;
     writeFileSync(`${LH_REPORT_DIR}/${safe}.html`, htmlReport);
     writeFileSync(`${LH_REPORT_DIR}/${safe}.json`, jsonReport);
     console.log(`  report: ${LH_REPORT_DIR}/${safe}.{html,json}`);
