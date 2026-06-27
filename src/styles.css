@@ -167,7 +167,7 @@ iframe[src*="lovable.dev/badge"] {
   --color-brand-foreground: var(--brand-foreground);
   --color-surface: var(--surface);
   --color-ink-soft: var(--ink-soft);
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Lora", ui-serif, Georgia, serif;
 }
 
