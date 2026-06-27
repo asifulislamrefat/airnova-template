@@ -30,3 +30,13 @@ jobs:
           SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
           SEO_USE_REMOTE_VALIDATOR: "1"
         run: node scripts/validate-jsonld.mjs
+      - name: Install Lighthouse
+        run: npm install --no-save --no-audit --no-fund lighthouse@12 chrome-launcher@1
+      - name: Lighthouse SEO + structured data thresholds
+        env:
+          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
+          LH_SEO_MIN: "0.9"
+          LH_PERF_MIN: "0.7"
+          LH_BEST_MIN: "0.85"
+          LH_A11Y_MIN: "0.85"
+        run: node scripts/lighthouse-check.mjs
