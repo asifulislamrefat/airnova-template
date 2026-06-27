@@ -102,14 +102,18 @@ export const Route = createFileRoute("/blog/$slug")({
     const post = loaderData?.post;
     const title = post ? `${post.title} — Airnova` : "Blog — Airnova";
     const description = post?.intro.slice(0, 155) ?? "Airnova blog article.";
+    const url = `https://airnova-template.lovable.app/blog/${post?.slug ?? ""}`;
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
         ...(post ? [{ property: "og:image", content: post.hero }, { name: "twitter:image", content: post.hero }] : []),
       ],
+      links: post ? [{ rel: "canonical", href: url }] : [],
     };
   },
   component: BlogDetailsPage,
