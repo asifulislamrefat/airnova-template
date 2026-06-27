@@ -21,6 +21,9 @@ import { Pause, Volume2, VolumeX, Maximize, X, Save } from "lucide-react";
 import hero1 from "@/assets/hero-1.webp.asset.json";
 import hero2 from "@/assets/hero-2.webp.asset.json";
 import hero3 from "@/assets/hero-3.webp.asset.json";
+// Vite turns the woff2 into a hashed URL string at build time. Lets us preload
+// the exact file the @font-face block in src/fonts.css will request.
+import interLatinWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import benefits1 from "@/assets/benefits-1.webp.asset.json";
 import showreelThumb from "@/assets/showreel-thumb.webp.asset.json";
 import project1 from "@/assets/project-1.webp.asset.json";
@@ -70,6 +73,13 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "preload", as: "image", href: hero1.url, fetchpriority: "high" },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: interLatinWoff2,
+        crossOrigin: "anonymous",
+      },
       { rel: "canonical", href: "https://airnova-template.lovable.app/" },
     ],
   }),
