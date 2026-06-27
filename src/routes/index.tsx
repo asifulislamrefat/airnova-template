@@ -315,7 +315,8 @@ function Hero() {
             <img
               key={src}
               src={src}
-              alt=""
+              alt={i === 0 ? "Creative designer portrait — Airnova studio" : ""}
+              aria-hidden={i === 0 ? undefined : true}
               width={513}
               height={750}
               loading={i === 0 ? "eager" : "lazy"}

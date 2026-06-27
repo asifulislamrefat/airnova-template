@@ -33,7 +33,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
             {cols.map((c, i) => (
               <div key={i} className="flex flex-col gap-5">
-                <h4 className="text-2xl font-semibold tracking-[-0.02em]">{c.title}</h4>
+                <div className="text-2xl font-semibold tracking-[-0.02em]">{c.title}</div>
                 <ul className="space-y-3 text-base text-background/85">
                   {c.links.map((l) => (
                     <li key={l}>
