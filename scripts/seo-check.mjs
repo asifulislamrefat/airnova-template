@@ -3,7 +3,7 @@
 // Usage: SEO_BASE_URL=https://airnova-template.lovable.app node scripts/seo-check.mjs
 
 const BASE = (process.env.SEO_BASE_URL || "https://airnova-template.lovable.app").replace(/\/$/, "");
-const BLOG_SAMPLE = (process.env.SEO_BLOG_SAMPLE || "the-art-of-creative-design,where-creativity-meets-strategy,explore-the-future-of-digital-design").split(",");
+const BLOG_SAMPLE = (process.env.SEO_BLOG_SAMPLE || "how-to-create-content-that-actually-converts,where-creativity-meets-strategy,explore-the-future-of-digital-design").split(",");
 
 const failures = [];
 const pass = (m) => console.log(`  ok  ${m}`);
