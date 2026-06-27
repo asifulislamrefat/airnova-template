@@ -307,7 +307,7 @@ function RitualRow({
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="group grid grid-cols-1 gap-4 rounded-[20px] bg-white p-6 transition-colors hover:bg-[#070606] lg:grid-cols-[120px_minmax(260px,auto)_1fr] lg:items-center lg:gap-12 lg:p-10"
     >
-      <span className="text-[20px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]/40 group-hover:text-white/70">
+      <span className="text-[20px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]/70 group-hover:text-white/70">
         {ritual.time}
       </span>
       <h3 className="whitespace-nowrap text-[clamp(22px,2.2vw,28px)] font-semibold leading-[1.15] tracking-[-0.065em] text-[#070606] group-hover:text-white">
