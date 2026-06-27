@@ -114,6 +114,28 @@ export const Route = createFileRoute("/blog/$slug")({
         ...(post ? [{ property: "og:image", content: post.hero }, { name: "twitter:image", content: post.hero }] : []),
       ],
       links: post ? [{ rel: "canonical", href: url }] : [],
+      scripts: post
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Article",
+                headline: post.title,
+                description,
+                image: post.hero,
+                datePublished: new Date(post.date).toISOString(),
+                author: { "@type": "Organization", name: "Airnova" },
+                publisher: {
+                  "@type": "Organization",
+                  name: "Airnova",
+                  url: "https://airnova-template.lovable.app",
+                },
+                mainEntityOfPage: { "@type": "WebPage", "@id": url },
+              }),
+            },
+          ]
+        : [],
     };
   },
   component: BlogDetailsPage,
