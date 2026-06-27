@@ -301,6 +301,8 @@ function Hero() {
               key={src}
               src={src}
               alt=""
+              width={513}
+              height={750}
               loading={i === 0 ? "eager" : "lazy"}
               decoding={i === 0 ? "sync" : "async"}
               fetchPriority={i === 0 ? "high" : "low"}
