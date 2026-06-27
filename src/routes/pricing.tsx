@@ -256,6 +256,7 @@ function PricingPage() {
             <BillingToggle value={billing} onChange={setBilling} />
           </div>
 
+          <h2 className="sr-only">Pricing plans</h2>
           <div className="flex w-full flex-col gap-6 lg:flex-row">
             {PLANS.map((plan) => (
               <PricingCard key={plan.name} plan={plan} billing={billing} />
