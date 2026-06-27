@@ -28,6 +28,14 @@ on:
         description: "Lighthouse accessibility minimum score (0-1)"
         required: false
         default: "0.85"
+      lh_mobile_perf_min:
+        description: "Lighthouse MOBILE performance minimum score (0-1)"
+        required: false
+        default: "0.6"
+      lh_mobile_seo_min:
+        description: "Lighthouse MOBILE SEO minimum score (0-1)"
+        required: false
+        default: "0.9"
   schedule:
     - cron: "0 6 * * *"
 
@@ -59,7 +67,18 @@ jobs:
         run: node scripts/validate-jsonld.mjs
       - name: Install Lighthouse
         run: npm install --no-save --no-audit --no-fund lighthouse@12 chrome-launcher@1
-      - name: Lighthouse SEO + structured data thresholds
+      - name: Lighthouse (desktop) — SEO + structured data thresholds
+        env:
+          LH_FORM_FACTOR: desktop
+        run: node scripts/lighthouse-check.mjs
+      - name: Lighthouse (mobile) — emulated Moto G Power, Slow 4G
+        env:
+          LH_FORM_FACTOR: mobile
+          # Mobile thresholds are deliberately a bit looser than desktop —
+          # throttling makes raw perf numbers lower. SEO/structured-data
+          # signals should still be just as strict.
+          LH_PERF_MIN: ${{ inputs.lh_mobile_perf_min || vars.LH_MOBILE_PERF_MIN || '0.6' }}
+          LH_SEO_MIN: ${{ inputs.lh_mobile_seo_min || vars.LH_MOBILE_SEO_MIN || '0.9' }}
         run: node scripts/lighthouse-check.mjs
       - name: Upload Lighthouse reports
         if: always()
