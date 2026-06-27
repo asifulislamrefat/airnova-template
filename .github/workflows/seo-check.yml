@@ -47,6 +47,7 @@ jobs:
       LH_PERF_MIN: ${{ inputs.lh_perf_min || vars.LH_PERF_MIN || '0.7' }}
       LH_BEST_MIN: ${{ inputs.lh_best_min || vars.LH_BEST_MIN || '0.85' }}
       LH_A11Y_MIN: ${{ inputs.lh_a11y_min || vars.LH_A11Y_MIN || '0.85' }}
+      LH_REPORT_DIR: lighthouse-reports
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -60,3 +61,11 @@ jobs:
         run: npm install --no-save --no-audit --no-fund lighthouse@12 chrome-launcher@1
       - name: Lighthouse SEO + structured data thresholds
         run: node scripts/lighthouse-check.mjs
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lighthouse-reports/
+          if-no-files-found: warn
+          retention-days: 14

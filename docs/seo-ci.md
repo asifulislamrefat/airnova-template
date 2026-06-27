@@ -34,6 +34,18 @@ Lower these to triage flakes; raise them once the site is stable.
 | `LH_BEST_MIN`   | `0.85`  | Best Practices      |
 | `LH_A11Y_MIN`   | `0.85`  | Accessibility       |
 
+## Lighthouse report artifacts
+
+The workflow uploads `lighthouse-reports/` as a GitHub Actions build artifact
+(`lighthouse-reports-<run_id>-<attempt>`) on every run, including failures.
+Each sampled blog page produces two files:
+
+- `<slug>.html` — the interactive Lighthouse report (open in a browser).
+- `<slug>.json` — the raw `lhr` for diffing or piping into other tools.
+
+Download them from the run page's **Artifacts** section. Override the local
+output directory with `LH_REPORT_DIR=/tmp/lh node scripts/lighthouse-check.mjs`.
+
 The script also fails on any of these Lighthouse audits scoring < 1
 (non-applicable audits with `score === null` are ignored):
 
