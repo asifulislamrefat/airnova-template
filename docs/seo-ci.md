@@ -15,6 +15,31 @@ inputs (`lh_mobile_perf_min`, `lh_mobile_seo_min`) or repo Variables
 `lighthouse-reports/<slug>.<form-factor>.{html,json}` so the uploaded
 artifact contains both runs side-by-side.
 
+## Mobile performance budget
+
+Beyond category scores, the mobile pass enforces raw metric ceilings (Core
+Web Vitals "good" thresholds + a font-load cap):
+
+| Env var          | Default | What it checks                                     |
+| ---------------- | ------- | -------------------------------------------------- |
+| `LH_LCP_MAX_MS`  | `2500`  | Largest Contentful Paint (ms)                      |
+| `LH_FCP_MAX_MS`  | `1800`  | First Contentful Paint (ms)                        |
+| `LH_CLS_MAX`     | `0.1`   | Cumulative Layout Shift (unitless)                 |
+| `LH_FONT_MAX_MS` | `1500`  | Sum of woff/woff2/ttf/otf request durations (ms)   |
+
+Each per-URL run logs the actual values and `ok` / `FAIL` lines, e.g.:
+
+```
+  budget: LCP=2210ms  FCP=1420ms  CLS=0.003  fonts=380ms (1 file)
+  ok  …/blog/slug: LCP 2210ms (budget 2500ms)
+  FAIL …/blog/slug: font load 1820ms > budget 1500ms — https://…/inter-…woff2
+```
+
+Any violation fails the job. Override via workflow_dispatch inputs
+(`lh_lcp_max_ms`, `lh_fcp_max_ms`, `lh_cls_max`, `lh_font_max_ms`) or repo
+Variables of the same uppercase names. Set `LH_BUDGET_ENABLED=0` to skip
+the budget block (the desktop pass already does this).
+
 Three scripts run in `.github/workflows/seo-check.yml` on every successful
 deployment, daily at 06:00 UTC, and on manual dispatch:
 
