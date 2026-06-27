@@ -1,0 +1,10 @@
+# Long-lived caching for Vite-hashed build output. Filenames include a content
+# hash, so a 1-year immutable cache is safe — any change ships under a new URL.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Belt-and-braces: catch any woff/woff2 served from elsewhere on the origin.
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
