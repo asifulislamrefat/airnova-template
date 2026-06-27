@@ -93,12 +93,13 @@ function ServicesHero() {
             </h1>
             <p className="max-w-[605px] text-[16px] font-medium leading-[1.5] tracking-[-0.075em] text-[#515151]">
               We create thoughtful and visually compelling design solutions that help your brand
-              stand out in a competitive digital world. By combining creativity with strategy our
-              designs
+              stand out in a competitive digital world. By combining creativity with strategy, our
+              designs deliver experiences that drive real results.
             </p>
           </div>
         </div>
 
+        <h2 className="sr-only">What we offer</h2>
         <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map(({ title, description, icon, slug }) => (
             <Link
