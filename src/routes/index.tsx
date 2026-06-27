@@ -383,9 +383,9 @@ function Benefits() {
               </p>
             </div>
             <div className="flex flex-col gap-8">
-              <h3 className="whitespace-nowrap text-[32px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]">
+              <h2 className="whitespace-nowrap text-[32px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]">
                 Engaging User Experience
-              </h3>
+              </h2>
               <a
                 href="#contact"
                 data-hover-lift
