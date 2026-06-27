@@ -103,6 +103,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const title = post ? `${post.title} — Airnova` : "Blog — Airnova";
     const description = post?.intro.slice(0, 155) ?? "Airnova blog article.";
     const url = `https://airnova-template.lovable.app/blog/${post?.slug ?? ""}`;
+    const heroAbs = post ? `https://airnova-template.lovable.app${post.hero}` : undefined;
     return {
       meta: [
         { title },
@@ -111,7 +112,16 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        ...(post ? [{ property: "og:image", content: post.hero }, { name: "twitter:image", content: post.hero }] : []),
+        ...(post
+          ? [
+              { property: "og:image", content: heroAbs! },
+              { property: "og:image:alt", content: post.title },
+              { name: "twitter:card", content: "summary_large_image" },
+              { name: "twitter:title", content: title },
+              { name: "twitter:description", content: description },
+              { name: "twitter:image", content: heroAbs! },
+            ]
+          : []),
       ],
       links: post ? [{ rel: "canonical", href: url }] : [],
       scripts: post
@@ -123,7 +133,7 @@ export const Route = createFileRoute("/blog/$slug")({
                 "@type": "Article",
                 headline: post.title,
                 description,
-                image: post.hero,
+                image: heroAbs,
                 datePublished: new Date(post.date).toISOString(),
                 author: { "@type": "Organization", name: "Airnova" },
                 publisher: {
