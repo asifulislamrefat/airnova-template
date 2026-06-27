@@ -64,7 +64,7 @@ function StudioHero() {
             A small room{" "}
             <span className={`${serif} text-white/50`}>with loud</span> ideas
           </h1>
-          <p className="max-w-[640px] text-base lg:text-[20px] font-medium leading-[1.5] tracking-[-0.075em] text-white/60">
+          <p className="max-w-[640px] text-base lg:text-[20px] font-medium leading-[1.5] tracking-[-0.075em] text-white/75">
             Airnova is twelve designers, writers and engineers in one quiet
             studio — building brand systems, motion and product surfaces for
             teams that refuse to sound like everyone else.
@@ -232,7 +232,7 @@ function HorizontalGallery() {
                 <p className="text-base font-medium leading-[1.4] tracking-[-0.05em] text-white">
                   {g.label}
                 </p>
-                <p className="text-base font-semibold leading-[1.4] tracking-[-0.05em] text-white/60">
+                <p className="text-base font-semibold leading-[1.4] tracking-[-0.05em] text-white/75">
                   0{i + 1} / 0{GALLERY.length}
                 </p>
               </div>
@@ -307,7 +307,7 @@ function RitualRow({
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="group grid grid-cols-1 gap-4 rounded-[20px] bg-white p-6 transition-colors hover:bg-[#070606] lg:grid-cols-[120px_minmax(260px,auto)_1fr] lg:items-center lg:gap-12 lg:p-10"
     >
-      <span className="text-[20px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]/40 group-hover:text-white/40">
+      <span className="text-[20px] font-semibold leading-[1.2] tracking-[-0.065em] text-[#070606]/70 group-hover:text-white/70">
         {ritual.time}
       </span>
       <h3 className="whitespace-nowrap text-[clamp(22px,2.2vw,28px)] font-semibold leading-[1.15] tracking-[-0.065em] text-[#070606] group-hover:text-white">
@@ -351,7 +351,7 @@ function DisciplinesMarquee() {
               className="flex items-center gap-12 text-[clamp(48px,9vw,128px)] font-semibold leading-none tracking-[-0.075em] text-white"
             >
               {d}
-              <span className="text-white/30">/</span>
+              <span className="text-white/75">/</span>
             </span>
           ))}
         </motion.div>
