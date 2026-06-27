@@ -24,6 +24,7 @@ import hero3 from "@/assets/hero-3.webp.asset.json";
 // Vite turns the woff2 into a hashed URL string at build time. Lets us preload
 // the exact file the @font-face block in src/fonts.css will request.
 import interLatinWoff2 from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import loraLatin500Italic from "@fontsource/lora/files/lora-latin-500-italic.woff2?url";
 import benefits1 from "@/assets/benefits-1.webp.asset.json";
 import showreelThumb from "@/assets/showreel-thumb.webp.asset.json";
 import project1 from "@/assets/project-1.webp.asset.json";
