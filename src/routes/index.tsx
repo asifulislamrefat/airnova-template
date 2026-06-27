@@ -1138,7 +1138,7 @@ function CustomVideoPlayer({
           </button>
 
           <span className="font-mono text-xs tabular-nums tracking-tight text-white/80">
-            {fmt(time)} <span className="text-white/40">/ {fmt(duration)}</span>
+            {fmt(time)} <span className="text-white/70">/ {fmt(duration)}</span>
           </span>
 
           <div className="ml-auto flex items-center gap-3">
@@ -1613,7 +1613,7 @@ function FannedTestimonials() {
           <h2 className={`max-w-[820px] text-[clamp(40px,5vw,72px)] font-normal leading-[1.05] tracking-[-0.03em] ${serif}`}>
             Industry-leading results with Airnova
           </h2>
-          <p className="max-w-xl text-base text-white/60">
+          <p className="max-w-xl text-base text-white/75">
             The LatAm talent partner top performers choose
           </p>
         </div>
@@ -1653,7 +1653,7 @@ function FannedTestimonials() {
                   />
                   <div>
                     <div className="text-base font-semibold tracking-[-0.02em]">{t.name}</div>
-                    <div className={`text-xs ${t.variant === "dark" ? "text-white/55" : "text-[#515151]"}`}>
+                    <div className={`text-xs ${t.variant === "dark" ? "text-white/75" : "text-[#515151]"}`}>
                       {t.role}
                     </div>
                   </div>
@@ -1661,7 +1661,7 @@ function FannedTestimonials() {
                 <h3 className="text-xl font-semibold leading-[1.25] tracking-[-0.02em]">
                   {t.title}
                 </h3>
-                <p className={`text-sm leading-[1.55] ${t.variant === "dark" ? "text-white/65" : "text-[#515151]"}`}>
+                <p className={`text-sm leading-[1.55] ${t.variant === "dark" ? "text-white/80" : "text-[#515151]"}`}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </article>
