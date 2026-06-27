@@ -1,0 +1,27 @@
+name: SEO regression check
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Base URL to scrape"
+        required: false
+        default: "https://airnova-template.lovable.app"
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  scrape:
+    # On deployment_status, only run for successful deployments.
+    if: github.event_name != 'deployment_status' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run SEO check
+        env:
+          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
+        run: node scripts/seo-check.mjs
