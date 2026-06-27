@@ -1,4 +1,11 @@
 @import "tailwindcss" source(none);
+/* Self-hosted Google Fonts (no external request to fonts.googleapis.com /
+   fonts.gstatic.com). Inter ships as a variable font covering 100–900.
+   Lora is loaded only for the italic weights we actually use on the site. */
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource/lora/500-italic.css";
+@import "@fontsource/lora/600-italic.css";
+@import "@fontsource/lora/700-italic.css";
 @source "../src";
 @import "tw-animate-css";
 
@@ -160,7 +167,7 @@ iframe[src*="lovable.dev/badge"] {
   --color-brand-foreground: var(--brand-foreground);
   --color-surface: var(--surface);
   --color-ink-soft: var(--ink-soft);
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Lora", ui-serif, Georgia, serif;
 }
 

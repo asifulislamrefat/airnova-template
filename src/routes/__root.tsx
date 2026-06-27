@@ -113,27 +113,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      // Preload the primary body font (Inter 400 + 600, latin subset) directly
-      // from gstatic. Combined with `font-display: swap` in the Google Fonts
-      // CSS this keeps text painting on the system fallback (no LCP delay) and
-      // swaps to Inter once the woff2 is ready (no layout shift because Inter
-      // and the system-ui fallback have close metrics; CLS stays < 0.01).
-      {
-        rel: "preload",
-        as: "font",
-        type: "font/woff2",
-        href: "https://fonts.gstatic.com/s/inter/v19/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "preload",
-        as: "font",
-        type: "font/woff2",
-        href: "https://fonts.gstatic.com/s/inter/v19/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7.woff2",
-        crossOrigin: "anonymous",
-      },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg", media: "(prefers-color-scheme: light)" },
       { rel: "icon", type: "image/svg+xml", href: "/favicon-dark.svg", media: "(prefers-color-scheme: dark)" },
@@ -144,25 +123,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon-dark.png", media: "(prefers-color-scheme: dark)" },
       { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#070606" },
       { rel: "alternate", type: "application/rss+xml", href: "/rss.xml", title: "Airnova Blog RSS" },
-      // Google Fonts: load non-render-blocking. Preload the stylesheet, then a
-      // tiny inline script (below) swaps it in as a real stylesheet on load.
-      // Saves ~750ms on mobile LCP (Lighthouse render-blocking insight).
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@1,500;1,600;1,700&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@1,500;1,600;1,700&display=swap",
-        media: "print",
-      },
+      // Fonts are now self-hosted via @fontsource-variable/inter and
+      // @fontsource/lora — bundled into appCss above. No external request
+      // to fonts.googleapis.com / fonts.gstatic.com is made.
     ],
     scripts: [
-      {
-        children:
-          "document.querySelectorAll('link[rel=\"stylesheet\"][media=\"print\"]').forEach(function(l){l.media='all'});",
-      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
