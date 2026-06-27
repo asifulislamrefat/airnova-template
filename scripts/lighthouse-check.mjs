@@ -12,6 +12,8 @@
 
 import lighthouse from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const BASE = (process.env.SEO_BASE_URL || "https://airnova-template.lovable.app").replace(/\/$/, "");
 const SLUGS = (process.env.SEO_BLOG_SLUGS ||
@@ -22,6 +24,11 @@ const LH_SEO_MIN = Number(process.env.LH_SEO_MIN ?? 0.9);
 const LH_PERF_MIN = Number(process.env.LH_PERF_MIN ?? 0.7);
 const LH_BEST_MIN = Number(process.env.LH_BEST_MIN ?? 0.85);
 const LH_A11Y_MIN = Number(process.env.LH_A11Y_MIN ?? 0.85);
+
+// Where to write per-URL HTML + JSON Lighthouse reports. CI uploads this
+// directory as a build artifact (see .github/workflows/seo-check.yml).
+const LH_REPORT_DIR = resolve(process.env.LH_REPORT_DIR || "lighthouse-reports");
+mkdirSync(LH_REPORT_DIR, { recursive: true });
 
 // Structured-data audits that must pass on every blog page.
 const STRUCTURED_DATA_AUDITS = ["structured-data", "is-crawlable", "meta-description", "document-title", "http-status-code", "canonical"];
@@ -37,11 +44,16 @@ try {
     console.log(`\nLighthouse → ${url}`);
     const runner = await lighthouse(url, {
       port: chrome.port,
-      output: "json",
+      output: ["html", "json"],
       logLevel: "error",
       onlyCategories: ["performance", "seo", "best-practices", "accessibility"],
     });
     const lhr = runner.lhr;
+    const [htmlReport, jsonReport] = runner.report;
+    const safe = slug.replace(/[^a-z0-9-]+/gi, "_");
+    writeFileSync(`${LH_REPORT_DIR}/${safe}.html`, htmlReport);
+    writeFileSync(`${LH_REPORT_DIR}/${safe}.json`, jsonReport);
+    console.log(`  report: ${LH_REPORT_DIR}/${safe}.{html,json}`);
     const cats = lhr.categories;
     const scores = {
       seo: cats.seo?.score ?? 0,
