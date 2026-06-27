@@ -18,6 +18,76 @@ html {
   }
 }
 
+/* ==========================================================================
+   Fluid Scaling System
+   The root font-size (`--size-font`) scales linearly with the viewport
+   between `--size-container-min` and `--size-container-max`, computed
+   against the Figma design width (`--size-container-ideal`).
+
+   Setting `html { font-size: var(--size-font) }` makes BOTH `em` AND `rem`
+   (and therefore every Tailwind `*-N` rem-based utility) scale together,
+   so a single source of truth controls all sizing across breakpoints.
+   ========================================================================== */
+:root {
+  --size-unit: 16;                 /* design body font-size in px (unitless) */
+  --size-container-ideal: 1280;    /* Figma frame width */
+  --size-container-min: 992px;
+  --size-container-max: 1280px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  --container-padding: 3.25em;
+
+  /* Spacing scale (em — scales with --size-font) */
+  --spacing-xs: 0.25em;
+  --spacing-sm: 0.5em;
+  --spacing-md: 1em;
+  --spacing-lg: 1.5em;
+  --spacing-xl: 2em;
+  --spacing-2xl: 2.5em;
+  --spacing-3xl: 3em;
+  --spacing-4xl: 3.25em;
+  --spacing-5xl: 4em;
+  --spacing-section: 6.25em;
+
+  /* Border radius (em) */
+  --radius-sm-fluid: 0.25em;
+  --radius-md-fluid: 0.5em;
+  --radius-lg-fluid: 1em;
+  --radius-pill: 3em;
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+    --container-padding: 1.5em;
+  }
+}
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 550;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+    --container-padding: 1em;
+  }
+}
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 390;
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+    --container-padding: 1em;
+  }
+}
+
+html {
+  font-size: var(--size-font);
+}
+
 /* Hide the "Edit with Lovable" badge across all environments (dev, preview, published). */
 #lovable-badge,
 [id^="lovable-badge"],
