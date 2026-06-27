@@ -1,12 +1,11 @@
 @import "tailwindcss" source(none);
 /* Self-hosted fonts — latin subset only to keep download small.
    Inter Variable: one woff2 covers weights 100–900 (latin subset ~22 KB).
-   Lora: italic 500/600/700, latin subset only. The full multi-subset bundle
-   would pull cyrillic / vietnamese / greek that this site doesn't use. */
+   Lora: italic 500 only (latin subset). Accent italic spans are visually
+   identical at 500 vs 600/700, so we ship one weight to keep the critical
+   chain to a single font request and shave ~46 KiB / ~600 ms on mobile. */
 @import "./fonts.css";
 @import "@fontsource/lora/latin-500-italic.css";
-@import "@fontsource/lora/latin-600-italic.css";
-@import "@fontsource/lora/latin-700-italic.css";
 @source "../src";
 @import "tw-animate-css";
 
