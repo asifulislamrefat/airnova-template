@@ -36,6 +36,22 @@ on:
         description: "Lighthouse MOBILE SEO minimum score (0-1)"
         required: false
         default: "0.9"
+      lh_lcp_max_ms:
+        description: "Mobile budget: max LCP in ms"
+        required: false
+        default: "2500"
+      lh_fcp_max_ms:
+        description: "Mobile budget: max FCP in ms"
+        required: false
+        default: "1800"
+      lh_cls_max:
+        description: "Mobile budget: max Cumulative Layout Shift"
+        required: false
+        default: "0.1"
+      lh_font_max_ms:
+        description: "Mobile budget: max total font load time in ms"
+        required: false
+        default: "1500"
   schedule:
     - cron: "0 6 * * *"
 
@@ -70,6 +86,8 @@ jobs:
       - name: Lighthouse (desktop) — SEO + structured data thresholds
         env:
           LH_FORM_FACTOR: desktop
+          # Perf budget is mobile-focused; skip on the desktop pass.
+          LH_BUDGET_ENABLED: "0"
         run: node scripts/lighthouse-check.mjs
       - name: Lighthouse (mobile) — emulated Moto G Power, Slow 4G
         env:
@@ -79,6 +97,12 @@ jobs:
           # signals should still be just as strict.
           LH_PERF_MIN: ${{ inputs.lh_mobile_perf_min || vars.LH_MOBILE_PERF_MIN || '0.6' }}
           LH_SEO_MIN: ${{ inputs.lh_mobile_seo_min || vars.LH_MOBILE_SEO_MIN || '0.9' }}
+          # Performance budget (Core Web Vitals "good" thresholds + a font-load
+          # ceiling). Violations fail the build and are reported per URL.
+          LH_LCP_MAX_MS: ${{ inputs.lh_lcp_max_ms || vars.LH_LCP_MAX_MS || '2500' }}
+          LH_FCP_MAX_MS: ${{ inputs.lh_fcp_max_ms || vars.LH_FCP_MAX_MS || '1800' }}
+          LH_CLS_MAX: ${{ inputs.lh_cls_max || vars.LH_CLS_MAX || '0.1' }}
+          LH_FONT_MAX_MS: ${{ inputs.lh_font_max_ms || vars.LH_FONT_MAX_MS || '1500' }}
         run: node scripts/lighthouse-check.mjs
       - name: Upload Lighthouse reports
         if: always()
