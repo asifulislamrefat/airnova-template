@@ -81,6 +81,13 @@ export const Route = createFileRoute("/")({
         href: interLatinWoff2,
         crossOrigin: "anonymous",
       },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: loraLatin500Italic,
+        crossOrigin: "anonymous",
+      },
       { rel: "canonical", href: "https://airnova-template.lovable.app/" },
     ],
   }),
