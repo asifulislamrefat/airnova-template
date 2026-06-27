@@ -59,7 +59,9 @@ export const Route = createFileRoute("/about")({
       },
       { property: "og:image", content: HERO_PORTRAIT },
       { name: "twitter:image", content: HERO_PORTRAIT },
+      { property: "og:url", content: "https://airnova-template.lovable.app/about" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/about" }],
   }),
   component: AboutPage,
 });

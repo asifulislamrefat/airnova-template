@@ -14,6 +14,7 @@ export const Route = createFileRoute("/projects/$slug")({
   head: ({ loaderData }) => {
     const p = loaderData?.project;
     if (!p) return { meta: [{ title: "Project — Airnova" }] };
+    const url = `https://airnova-template.lovable.app/projects/${p.slug}`;
     return {
       meta: [
         { title: `${p.name} — Airnova` },
@@ -22,7 +23,9 @@ export const Route = createFileRoute("/projects/$slug")({
         { property: "og:description", content: p.summary.slice(0, 160) },
         { property: "og:image", content: p.image },
         { name: "twitter:image", content: p.image },
+        { property: "og:url", content: url },
       ],
+      links: [{ rel: "canonical", href: url }],
     };
   },
   notFoundComponent: () => (

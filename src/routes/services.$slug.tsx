@@ -127,14 +127,17 @@ export const Route = createFileRoute("/services/$slug")({
     const s = loaderData?.service;
     const title = s ? `${s.title} — Airnova` : "Service — Airnova";
     const description = s?.sectionOne.paragraphs[0].slice(0, 155) ?? "Airnova service detail.";
+    const url = `https://airnova-template.lovable.app/services/${s?.slug ?? ""}`;
     return {
       meta: [
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:url", content: url },
         ...(s ? [{ property: "og:image", content: s.hero }, { name: "twitter:image", content: s.hero }] : []),
       ],
+      links: s ? [{ rel: "canonical", href: url }] : [],
     };
   },
   component: ServiceDetailsPage,

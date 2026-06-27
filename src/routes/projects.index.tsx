@@ -21,7 +21,9 @@ export const Route = createFileRoute("/projects/")({
         content:
           "Explore a selection of creative projects that reflect our passion for design and innovation.",
       },
+      { property: "og:url", content: "https://airnova-template.lovable.app/projects" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/projects" }],
   }),
   component: ProjectsPage,
 });

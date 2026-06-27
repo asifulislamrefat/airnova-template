@@ -34,7 +34,9 @@ export const Route = createFileRoute("/studio")({
       },
       { property: "og:image", content: HERO_IMG },
       { name: "twitter:image", content: HERO_IMG },
+      { property: "og:url", content: "https://airnova-template.lovable.app/studio" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/studio" }],
   }),
   component: StudioPage,
 });

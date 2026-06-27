@@ -23,7 +23,9 @@ export const Route = createFileRoute("/pricing")({
         content:
           "Choose a monthly or annual plan and get consistent, high-quality design support from the Airnova team.",
       },
+      { property: "og:url", content: "https://airnova-template.lovable.app/pricing" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/pricing" }],
   }),
   component: PricingPage,
 });

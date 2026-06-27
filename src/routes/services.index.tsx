@@ -29,7 +29,9 @@ export const Route = createFileRoute("/services/")({
         content:
           "Design solutions that make your brand stand — identity, consulting, prototyping, e-commerce, dashboards and graphics.",
       },
+      { property: "og:url", content: "https://airnova-template.lovable.app/services" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/services" }],
   }),
   component: ServicesPage,
 });

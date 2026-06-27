@@ -24,7 +24,9 @@ export const Route = createFileRoute("/contact")({
         content:
           "Reach out to Airnova and we'll get back to you with the support you need.",
       },
+      { property: "og:url", content: "https://airnova-template.lovable.app/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/contact" }],
   }),
   component: ContactPage,
 });
