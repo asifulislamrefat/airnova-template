@@ -8,6 +8,26 @@ on:
         description: "Base URL to scrape"
         required: false
         default: "https://airnova-template.lovable.app"
+      blog_slugs:
+        description: "Comma-separated blog slugs to sample"
+        required: false
+        default: "how-to-create-content-that-actually-converts,where-creativity-meets-strategy,explore-the-future-of-digital-design"
+      lh_seo_min:
+        description: "Lighthouse SEO minimum score (0-1)"
+        required: false
+        default: "0.9"
+      lh_perf_min:
+        description: "Lighthouse performance minimum score (0-1)"
+        required: false
+        default: "0.7"
+      lh_best_min:
+        description: "Lighthouse best-practices minimum score (0-1)"
+        required: false
+        default: "0.85"
+      lh_a11y_min:
+        description: "Lighthouse accessibility minimum score (0-1)"
+        required: false
+        default: "0.85"
   schedule:
     - cron: "0 6 * * *"
 
@@ -16,27 +36,27 @@ jobs:
     # On deployment_status, only run for successful deployments.
     if: github.event_name != 'deployment_status' || github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
+    env:
+      # Repository Variables (Settings → Secrets and variables → Actions → Variables)
+      # override these defaults; workflow_dispatch inputs override both.
+      SEO_BASE_URL: ${{ inputs.base_url || github.event.deployment_status.target_url || vars.SEO_BASE_URL || 'https://airnova-template.lovable.app' }}
+      SEO_BLOG_SLUGS: ${{ inputs.blog_slugs || vars.SEO_BLOG_SLUGS || 'how-to-create-content-that-actually-converts,where-creativity-meets-strategy,explore-the-future-of-digital-design' }}
+      SEO_BLOG_SAMPLE: ${{ vars.SEO_BLOG_SAMPLE || inputs.blog_slugs || 'how-to-create-content-that-actually-converts,where-creativity-meets-strategy,explore-the-future-of-digital-design' }}
+      SEO_USE_REMOTE_VALIDATOR: ${{ vars.SEO_USE_REMOTE_VALIDATOR || '1' }}
+      LH_SEO_MIN: ${{ inputs.lh_seo_min || vars.LH_SEO_MIN || '0.9' }}
+      LH_PERF_MIN: ${{ inputs.lh_perf_min || vars.LH_PERF_MIN || '0.7' }}
+      LH_BEST_MIN: ${{ inputs.lh_best_min || vars.LH_BEST_MIN || '0.85' }}
+      LH_A11Y_MIN: ${{ inputs.lh_a11y_min || vars.LH_A11Y_MIN || '0.85' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: Run SEO check
-        env:
-          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
         run: node scripts/seo-check.mjs
       - name: Validate blog JSON-LD structured data
-        env:
-          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
-          SEO_USE_REMOTE_VALIDATOR: "1"
         run: node scripts/validate-jsonld.mjs
       - name: Install Lighthouse
         run: npm install --no-save --no-audit --no-fund lighthouse@12 chrome-launcher@1
       - name: Lighthouse SEO + structured data thresholds
-        env:
-          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
-          LH_SEO_MIN: "0.9"
-          LH_PERF_MIN: "0.7"
-          LH_BEST_MIN: "0.85"
-          LH_A11Y_MIN: "0.85"
         run: node scripts/lighthouse-check.mjs
