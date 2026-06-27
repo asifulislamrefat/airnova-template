@@ -1,11 +1,12 @@
 @import "tailwindcss" source(none);
-/* Self-hosted Google Fonts (no external request to fonts.googleapis.com /
-   fonts.gstatic.com). Inter ships as a variable font covering 100–900.
-   Lora is loaded only for the italic weights we actually use on the site. */
-@import "@fontsource-variable/inter/index.css";
-@import "@fontsource/lora/500-italic.css";
-@import "@fontsource/lora/600-italic.css";
-@import "@fontsource/lora/700-italic.css";
+/* Self-hosted fonts — latin subset only to keep download small.
+   Inter Variable: one woff2 covers weights 100–900 (latin subset ~22 KB).
+   Lora: italic 500/600/700, latin subset only. The full multi-subset bundle
+   would pull cyrillic / vietnamese / greek that this site doesn't use. */
+@import "./fonts.css";
+@import "@fontsource/lora/latin-500-italic.css";
+@import "@fontsource/lora/latin-600-italic.css";
+@import "@fontsource/lora/latin-700-italic.css";
 @source "../src";
 @import "tw-animate-css";
 
