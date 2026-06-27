@@ -25,3 +25,8 @@ jobs:
         env:
           SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
         run: node scripts/seo-check.mjs
+      - name: Validate blog JSON-LD structured data
+        env:
+          SEO_BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://airnova-template.lovable.app' }}
+          SEO_USE_REMOTE_VALIDATOR: "1"
+        run: node scripts/validate-jsonld.mjs
