@@ -45,7 +45,9 @@ export const Route = createFileRoute("/blog/")({
         content:
           "Insights, ideas, and creative inspiration on design, branding, and digital experiences.",
       },
+      { property: "og:url", content: "https://airnova-template.lovable.app/blog" },
     ],
+    links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/blog" }],
   }),
   component: BlogPage,
 });
