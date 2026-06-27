@@ -27,6 +27,28 @@ export const Route = createFileRoute("/contact")({
       { property: "og:url", content: "https://airnova-template.lovable.app/contact" },
     ],
     links: [{ rel: "canonical", href: "https://airnova-template.lovable.app/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          name: "Airnova",
+          description:
+            "Creative design studio crafting brand identities, websites, and digital products for ambitious teams.",
+          url: "https://airnova-template.lovable.app",
+          telephone: "+1-888-456-8970",
+          email: "exampl@gmail.com",
+          areaServed: "Worldwide",
+          priceRange: "$$",
+          serviceType: [
+            "Brand Identity Design",
+            "Web Design",
+            "Digital Product Design",
+          ],
+        }),
+      },
+    ],
   }),
   component: ContactPage,
 });

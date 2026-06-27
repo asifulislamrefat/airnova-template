@@ -129,6 +129,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@1,500;1,600;1,700&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://airnova-template.lovable.app/#organization",
+              name: "Airnova",
+              url: "https://airnova-template.lovable.app",
+              description:
+                "Airnova is a creative design studio crafting brand identities, websites, and digital products for ambitious teams.",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://airnova-template.lovable.app/#website",
+              url: "https://airnova-template.lovable.app",
+              name: "Airnova",
+              publisher: { "@id": "https://airnova-template.lovable.app/#organization" },
+              inLanguage: "en",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
