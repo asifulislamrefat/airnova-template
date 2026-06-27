@@ -12,6 +12,9 @@ import img4 from "@/assets/blog-4-airpods.webp.asset.json";
 import img5 from "@/assets/blog-5-off-button.webp.asset.json";
 import img6 from "@/assets/blog-6-pen-tool.webp.asset.json";
 
+const SITE_URL = "https://airnova-template.lovable.app";
+const FALLBACK_OG_IMAGE = `${SITE_URL}${img1.url}`;
+
 type Post = {
   slug: string;
   title: string;
@@ -83,7 +86,7 @@ function stub(slug: string, title: string, hero: string, gallery: [string, strin
   return { ...BASE_POST, slug, title, hero, gallery };
 }
 
-const POSTS: Record<string, Post> = {
+export const POSTS: Record<string, Post> = {
   [BASE_POST.slug]: BASE_POST,
   "where-creativity-meets-strategy": stub("where-creativity-meets-strategy", "Where Creativity Meets Strategy", img2.url, [img3.url, img4.url]),
   "explore-the-future-of-digital-design": stub("explore-the-future-of-digital-design", "Explore the Future of Digital Design", img3.url, [img4.url, img5.url]),
@@ -102,28 +105,25 @@ export const Route = createFileRoute("/blog/$slug")({
     const post = loaderData?.post;
     const title = post ? `${post.title} — Airnova` : "Blog — Airnova";
     const description = post?.intro.slice(0, 155) ?? "Airnova blog article.";
-    const url = `https://airnova-template.lovable.app/blog/${post?.slug ?? ""}`;
-    const heroAbs = post ? `https://airnova-template.lovable.app${post.hero}` : undefined;
+    const url = `${SITE_URL}/blog/${post?.slug ?? ""}`;
+    const heroAbs = post ? `${SITE_URL}${post.hero}` : FALLBACK_OG_IMAGE;
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        ...(post
-          ? [
-              { property: "og:image", content: heroAbs! },
-              { property: "og:image:alt", content: post.title },
-              { name: "twitter:card", content: "summary_large_image" },
-              { name: "twitter:title", content: title },
-              { name: "twitter:description", content: description },
-              { name: "twitter:image", content: heroAbs! },
-            ]
-          : []),
+        { property: "og:image", content: heroAbs },
+        { property: "og:image:alt", content: post?.title ?? "Airnova blog" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: heroAbs },
       ],
-      links: post ? [{ rel: "canonical", href: url }] : [],
+      links: [{ rel: "canonical", href: url }],
       scripts: post
         ? [
             {
@@ -139,7 +139,7 @@ export const Route = createFileRoute("/blog/$slug")({
                 publisher: {
                   "@type": "Organization",
                   name: "Airnova",
-                  url: "https://airnova-template.lovable.app",
+                  url: SITE_URL,
                 },
                 mainEntityOfPage: { "@type": "WebPage", "@id": url },
               }),
