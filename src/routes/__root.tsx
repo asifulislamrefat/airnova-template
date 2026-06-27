@@ -125,17 +125,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon-dark.png", media: "(prefers-color-scheme: dark)" },
       { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#070606" },
       { rel: "alternate", type: "application/rss+xml", href: "/rss.xml", title: "Airnova Blog RSS" },
+      // Google Fonts: load non-render-blocking. Preload the stylesheet, then a
+      // tiny inline script (below) swaps it in as a real stylesheet on load.
+      // Saves ~750ms on mobile LCP (Lighthouse render-blocking insight).
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@1,500;1,600;1,700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@1,500;1,600;1,700&display=swap",
-        // Load fonts without blocking initial render: browser fetches the
-        // stylesheet as a non-render-blocking "print" sheet, then swaps to
-        // "all" once loaded. Saves ~750ms on mobile LCP (Lighthouse).
         media: "print",
-        onLoad: "this.media='all'",
       },
     ],
     scripts: [
+      {
+        children:
+          "document.querySelectorAll('link[rel=\"stylesheet\"][media=\"print\"]').forEach(function(l){l.media='all'});",
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
