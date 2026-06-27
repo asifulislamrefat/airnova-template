@@ -85,7 +85,14 @@ function FigmaPlusIcon({ className = "", dark = false }: { className?: string; d
 /* ---------- Sections ---------- */
 
 const heroImages = [hero1.url, hero2.url, hero3.url];
-const brandLogos = [brandLogo2, brandLogo3, brandLogo4, brandLogo1, brandLogo5, brandLogo6];
+const brandLogos: { url: string; name: string }[] = [
+  { url: brandLogo2.url, name: "Mercura" },
+  { url: brandLogo3.url, name: "Nimbus" },
+  { url: brandLogo4.url, name: "Vertex" },
+  { url: brandLogo1.url, name: "Stellar" },
+  { url: brandLogo5.url, name: "Lumen" },
+  { url: brandLogo6.url, name: "Orbit" },
+];
 
 function LogoMarquee() {
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -164,7 +171,7 @@ function LogoMarquee() {
           >
             <img
               src={logo.url}
-              alt=""
+              alt={`${logo.name} client logo`}
               draggable={false}
               className="max-h-[30px] w-auto max-w-[60px] sm:max-h-[50px] sm:max-w-[100px] object-contain"
               loading="lazy"
