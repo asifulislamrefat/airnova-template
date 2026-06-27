@@ -62,6 +62,11 @@ export const Route = createFileRoute("/")({
           "Modern, user-focused brand identities, websites and digital products by Airnova.",
       },
       { property: "og:url", content: "https://airnova-template.lovable.app/" },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: `https://airnova-template.lovable.app${hero1.url}` },
+      { name: "twitter:image", content: `https://airnova-template.lovable.app${hero1.url}` },
+      { name: "twitter:title", content: "Airnova — Creative designer & digital experience" },
+      { name: "twitter:description", content: "Modern, user-focused brand identities, websites and digital products by Airnova." },
     ],
     links: [
       { rel: "preload", as: "image", href: hero1.url, fetchpriority: "high" },
