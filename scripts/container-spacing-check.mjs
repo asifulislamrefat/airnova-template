@@ -17,6 +17,7 @@
  * Exits 0 when every route is consistent, 1 on the first mismatch.
  */
 import { chromium } from "playwright";
+import { existsSync } from "node:fs";
 
 const BASE_URL = (process.env.BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 
@@ -42,6 +43,23 @@ const DEVICES = [
 
 /** Rounding slack — sub-pixel layout means a 0.01 px drift is not a regression. */
 const TOLERANCE = 1;
+
+/**
+ * Pick a chromium binary. Prefer Playwright's bundled browser, then fall back
+ * to a system chromium so the script runs in CI images that ship one preinstalled.
+ */
+function resolveExecutablePath() {
+  if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH;
+  const candidates = [
+    "/chromium_headless_shell-1194/chrome-linux/headless_shell",
+    "/chromium-1194/chrome-linux/chrome",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
+    "/usr/bin/google-chrome",
+    "/bin/chromium",
+  ];
+  return candidates.find((p) => existsSync(p));
+}
 
 const COLLECT = `() => {
   return Array.from(document.querySelectorAll('.container-x, .container-x-inset')).map((el) => {
@@ -95,7 +113,8 @@ function checkRoute(route, device, items) {
 }
 
 async function main() {
-  const browser = await chromium.launch({ headless: true });
+  const executablePath = resolveExecutablePath();
+  const browser = await chromium.launch({ headless: true, executablePath });
   try {
     for (const device of DEVICES) {
       const context = await browser.newContext({
