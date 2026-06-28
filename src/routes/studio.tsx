@@ -55,9 +55,9 @@ function StudioHero() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#070606] px-[5%] pb-20 pt-16 lg:px-0 lg:pb-32 lg:pt-24"
+      className="relative overflow-hidden bg-[#070606] pb-20 pt-16 lg:pb-32 lg:pt-24"
     >
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-12 lg:w-[calc(100%_-_160px)] lg:gap-20">
+      <div className="container-x flex flex-col gap-12 lg:gap-20">
         <div className="flex flex-col items-start gap-6">
           <Pill variant="white">The Studio</Pill>
           <h1 className="max-w-[1100px] text-[clamp(48px,9vw,140px)] font-semibold leading-[0.95] tracking-[-0.075em] text-white">
@@ -111,8 +111,8 @@ function Manifesto() {
       className="relative bg-[#f5f5f5]"
       style={{ height: `${MANIFESTO.length * 70}vh` }}
     >
-      <div className="sticky top-0 flex h-screen items-center px-[5%] lg:px-0">
-        <div className="mx-auto w-full max-w-[1280px] lg:w-[calc(100%_-_160px)]">
+      <div className="sticky top-0 flex h-screen items-center">
+        <div className="container-x">
           <div className="relative z-10 mb-10">
             <Pill variant="white">Manifesto</Pill>
           </div>
@@ -209,14 +209,14 @@ function HorizontalGallery() {
       style={{ height: `${vh}vh` }}
     >
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        <div className="mb-8 px-[5%] lg:px-20">
+        <div className="container-x mb-8">
           <Pill variant="white">Inside</Pill>
           <h2 className="mt-6 max-w-[800px] text-[clamp(34px,5vw,64px)] font-semibold leading-[1.1] tracking-[-0.065em] text-white">
             Four corners,{" "}
             <span className={`${serif} text-white/50`}>one obsession</span>
           </h2>
         </div>
-        <motion.div ref={trackRef} style={{ x }} className="flex gap-6 px-[5%] lg:gap-10 lg:px-20">
+        <motion.div ref={trackRef} style={{ x }} className="container-x flex gap-6 lg:gap-10">
           {GALLERY.map((g, i) => (
             <div
               key={i}
@@ -271,8 +271,8 @@ const RITUALS = [
 
 function Rituals() {
   return (
-    <section className="bg-[#f5f5f5] px-[5%] py-20 lg:px-0 lg:py-32">
-      <div className="mx-auto w-full max-w-[1280px] lg:w-[calc(100%_-_160px)]">
+    <section className="bg-[#f5f5f5] py-20 lg:py-32">
+      <div className="container-x">
         <div className="mb-16 flex flex-col items-start gap-6 lg:mb-24">
           <Pill variant="white">Rituals</Pill>
           <h2 className="max-w-[900px] text-[clamp(36px,6vw,72px)] font-semibold leading-[1.1] tracking-[-0.065em] text-[#070606]">
@@ -371,8 +371,8 @@ const PEOPLE = [
 
 function People() {
   return (
-    <section className="bg-white px-[5%] py-20 lg:px-0 lg:py-32">
-      <div className="mx-auto w-full max-w-[1280px] lg:w-[calc(100%_-_160px)]">
+    <section className="bg-white py-20 lg:py-32">
+      <div className="container-x">
         <div className="mb-12 flex flex-col items-start gap-6 lg:mb-20">
           <Pill>People</Pill>
           <h2 className="max-w-[900px] text-[clamp(36px,6vw,72px)] font-semibold leading-[1.1] tracking-[-0.065em] text-[#070606]">
