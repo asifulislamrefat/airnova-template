@@ -886,12 +886,14 @@ function Stats() {
                 thumbVisible ? "pointer-events-none opacity-0" : "opacity-100"
               }`}
             >
-              <CustomVideoPlayer
-                youtubeId="c-rV8AcXlQE"
-                fill
-                playSignal={playSignal}
-                onPlayingChange={setVideoPlaying}
-              />
+              <Suspense fallback={null}>
+                <CustomVideoPlayer
+                  youtubeId="c-rV8AcXlQE"
+                  fill
+                  playSignal={playSignal}
+                  onPlayingChange={setVideoPlaying}
+                />
+              </Suspense>
             </div>
           )}
 
@@ -1078,7 +1080,9 @@ function SolutionInner() {
             }`}
             style={{ aspectRatio: "16 / 9" }}
           >
-            <CustomVideoPlayer youtubeId="c-rV8AcXlQE" fill />
+            <Suspense fallback={null}>
+              <CustomVideoPlayer youtubeId="c-rV8AcXlQE" fill />
+            </Suspense>
           </div>
           <button
             type="button"
@@ -1432,10 +1436,12 @@ function Index() {
       <Projects />
       <Stats />
       <Solution />
-      <Testimonials />
-      <Faq />
-      <Cta />
-      <Footer />
+      <Suspense fallback={null}>
+        <Testimonials />
+        <Faq />
+        <Cta />
+        <Footer />
+      </Suspense>
     </main>
   );
 }
