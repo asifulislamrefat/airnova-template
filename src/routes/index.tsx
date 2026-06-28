@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PROJECTS } from "@/lib/projects";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, lazy, Suspense, type CSSProperties } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -17,7 +17,7 @@ import {
   Gift,
   AppWindow,
 } from "lucide-react";
-import { Pause, Volume2, VolumeX, Maximize, X, Save } from "lucide-react";
+import { X, Save } from "lucide-react";
 import hero1 from "@/assets/hero-1.webp.asset.json";
 import hero2 from "@/assets/hero-2.webp.asset.json";
 import hero3 from "@/assets/hero-3.webp.asset.json";
@@ -47,8 +47,16 @@ import brandLogo6 from "@/assets/brand-logo-6.png.asset.json";
 import { serif, BrandMark, Logo, Pill } from "@/components/site/shared";
 import { Nav } from "@/components/site/Nav";
 import { Cta } from "@/components/site/Cta";
-import { Footer } from "@/components/site/Footer";
-import { Testimonials } from "@/components/site/Testimonials";
+
+// Below-the-fold sections — lazy-loaded to keep the main bundle lean.
+// Suspense streams SSR markup; the client chunks load after hydration.
+const Footer = lazy(() => import("@/components/site/Footer").then((m) => ({ default: m.Footer })));
+const Testimonials = lazy(() =>
+  import("@/components/site/Testimonials").then((m) => ({ default: m.Testimonials })),
+);
+const Faq = lazy(() => import("@/components/site/HomeFaq"));
+// Showreel video player only mounts when the user clicks Play.
+const CustomVideoPlayer = lazy(() => import("@/components/site/CustomVideoPlayer"));
 
 export const Route = createFileRoute("/")({
   head: () => ({
