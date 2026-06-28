@@ -125,8 +125,9 @@ async function main() {
       for (const route of ROUTES) {
         const url = `${BASE_URL}${route}`;
         try {
-          await page.goto(url, { waitUntil: "domcontentloaded", timeout: 20000 });
-          await page.waitForTimeout(400);
+          await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+          await page.waitForSelector(".container-x, .container-x-inset", { timeout: 10000 });
+          await page.waitForTimeout(300);
         } catch (err) {
           failures.push({ route, device: device.name, error: String(err) });
           continue;
