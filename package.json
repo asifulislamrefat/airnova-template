@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "responsive-check": "node scripts/responsive-check.mjs"
+    "responsive-check": "node scripts/responsive-check.mjs",
+    "container-check": "node scripts/container-spacing-check.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
