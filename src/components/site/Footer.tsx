@@ -14,7 +14,7 @@ const ROUTE_MAP: Record<string, string> = {
 export function Footer() {
   const cols = [
     { title: "Pages", links: ["Home", "About Us", "Services", "Projects", "Blog"] },
-    { title: "Pages", links: ["Blog Details", "Projects Details", "Services Details", "Pricing"] },
+    { title: "Details", links: ["Blog Details", "Projects Details", "Services Details", "Pricing"] },
     { title: "Information", links: ["Book a call", "Instagram", "LinkedIn", "Twitter"] },
     { title: "Inner Pages", links: ["404", "Licenses", "Changelog", "Style Guide"] },
   ];
