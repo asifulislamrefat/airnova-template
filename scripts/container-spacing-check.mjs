@@ -61,11 +61,11 @@ function resolveExecutablePath() {
   return candidates.find((p) => existsSync(p));
 }
 
-const COLLECT = `() => {
-  return Array.from(document.querySelectorAll('.container-x, .container-x-inset')).map((el) => {
+function collectContainers() {
+  return Array.from(document.querySelectorAll(".container-x, .container-x-inset")).map((el) => {
     const r = el.getBoundingClientRect();
     const cs = getComputedStyle(el);
-    const variant = el.classList.contains('container-x-inset') ? 'container-x-inset' : 'container-x';
+    const variant = el.classList.contains("container-x-inset") ? "container-x-inset" : "container-x";
     return {
       variant,
       left: r.left,
@@ -74,7 +74,7 @@ const COLLECT = `() => {
       padR: parseFloat(cs.paddingRight),
     };
   });
-}`;
+}
 
 const failures = [];
 
@@ -133,7 +133,7 @@ async function main() {
           continue;
         }
 
-        const items = await page.evaluate(COLLECT);
+        const items = await page.evaluate(collectContainers);
         if (!items || items.length === 0) {
           failures.push({
             route,
