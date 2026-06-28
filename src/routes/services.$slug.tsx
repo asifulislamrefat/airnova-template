@@ -190,8 +190,8 @@ function ServiceDetailsPage() {
   return (
     <main className="min-h-screen overflow-x-clip bg-white font-sans text-foreground antialiased">
       <Nav />
-      <section className="bg-[#f5f5f5] px-5 py-20 sm:px-10 lg:px-20 lg:py-28">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-start gap-20">
+      <section className="bg-[#f5f5f5] py-20 lg:py-28">
+        <div className="container-x flex flex-col items-start gap-20">
           <div className="flex w-full flex-col items-start gap-[72px]">
           {/* Header */}
           <div className="flex w-full flex-col gap-12">

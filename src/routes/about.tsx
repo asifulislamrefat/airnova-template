@@ -71,8 +71,8 @@ export const Route = createFileRoute("/about")({
 function AboutHero() {
   const avatars = [avatar10.url, avatar11.url, avatar12.url, avatar13.url];
   return (
-    <section className="overflow-clip bg-white px-[5%] py-14 lg:h-[900px] lg:px-0 lg:py-0">
-      <div className="mx-auto w-full max-w-[1280px] lg:w-[calc(100%_-_160px)] lg:pt-14">
+    <section className="overflow-clip bg-white py-14 lg:h-[900px] lg:py-0">
+      <div className="container-x lg:pt-14">
         <div className="flex flex-col items-start gap-12 lg:flex-row lg:justify-between lg:gap-0">
           <div className="flex flex-col gap-12 lg:w-[48%] lg:shrink-0 lg:pt-20 xl:w-[623px]">
             <div className="flex flex-col items-start gap-4">
@@ -234,7 +234,7 @@ function LogoGrid() {
       style={{ height: `${scrollVh}vh` }}
     >
       <div className="sticky top-0 flex h-screen items-center justify-center py-10 lg:py-16">
-        <div className="mx-auto grid w-[calc(100%_-_32px)] max-w-[1280px] grid-cols-2 gap-2 lg:grid-cols-3 lg:w-[calc(100%_-_160px)]">
+        <div className="container-x grid grid-cols-2 gap-2 lg:grid-cols-3">
           {logos.map((logo, i) => (
             <LogoTile key={i} logo={logo} revealed={revealed[i]} />
           ))}
@@ -376,7 +376,7 @@ function ResultsBlock({
   return (
     <section className={`bg-[#f5f5f5] py-16 ${reverse ? "lg:pb-28 lg:pt-14" : "lg:py-28"}`}>
       <div
-        className={`mx-auto grid w-[calc(100%_-_32px)] max-w-[1280px] items-stretch gap-10 lg:w-[calc(100%_-_160px)] lg:gap-16 ${
+        className={`container-x grid items-stretch gap-10 lg:gap-16 ${
           reverse ? "lg:grid-cols-[598fr_618fr]" : "lg:grid-cols-[618fr_598fr]"
         }`}
       >

@@ -84,8 +84,8 @@ const SERVICES: Service[] = [
 
 function ServicesHero() {
   return (
-    <section className="bg-[#f5f5f5] px-[5%] py-16 lg:px-[80px] lg:py-28">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-12 lg:gap-16">
+    <section className="bg-[#f5f5f5] py-16 lg:py-28">
+      <div className="container-x flex flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-2">
           <Pill variant="white">Our Services</Pill>
           <div className="flex flex-col items-center gap-4 text-center">
