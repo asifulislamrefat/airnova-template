@@ -318,23 +318,35 @@ function Hero() {
         </div>
 
         {/* Right image slider — same on all viewports, stacks below on mobile/tablet */}
-        <div className="relative min-w-0 w-full flex-1 overflow-hidden rounded-[20px] bg-black/5 aspect-[513/375] lg:aspect-auto lg:h-[750px] lg:max-w-[513px]">
-          {heroImages.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt={i === 0 ? "Creative designer portrait — Airnova studio" : ""}
-              aria-hidden={i === 0 ? undefined : true}
-              width={513}
-              height={750}
-              loading={i === 0 ? "eager" : "lazy"}
-              decoding={i === 0 ? "sync" : "async"}
-              fetchPriority={i === 0 ? "high" : "low"}
-              className={`absolute inset-0 size-full object-cover object-top transition-opacity duration-700 ${
-                i === active ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
+        <div className="relative min-w-0 w-full flex-1 overflow-hidden rounded-[20px] aspect-[513/375] lg:aspect-auto lg:h-[750px] lg:max-w-[513px]">
+          {heroImages.map((src, i) => {
+            const isFirst = i === 0;
+            // The first image is the LCP candidate — render it without any
+            // opacity transition so Chrome records the paint immediately.
+            // Subsequent slides fade in/out via the carousel.
+            return (
+              <img
+                key={src}
+                src={src}
+                alt={isFirst ? "Creative designer portrait — Airnova studio" : ""}
+                aria-hidden={isFirst ? undefined : true}
+                width={513}
+                height={750}
+                loading={isFirst ? "eager" : "lazy"}
+                decoding={isFirst ? "sync" : "async"}
+                fetchPriority={isFirst ? "high" : "low"}
+                className={
+                  isFirst
+                    ? `absolute inset-0 size-full object-cover object-top ${
+                        active === 0 ? "opacity-100" : "opacity-0 transition-opacity duration-700"
+                      }`
+                    : `absolute inset-0 size-full object-cover object-top transition-opacity duration-700 ${
+                        i === active ? "opacity-100" : "opacity-0"
+                      }`
+                }
+              />
+            );
+          })}
 
           {/* Progress bar — 3 segments, 142 wide, ~30px from bottom */}
           <div className="absolute bottom-[18px] left-1/2 flex w-[83px] -translate-x-1/2 items-center gap-[4.7px] sm:bottom-[30px] sm:w-[142px] sm:gap-2">
